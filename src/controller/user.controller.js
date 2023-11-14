@@ -45,7 +45,7 @@ const postLogin = async (req, res) =>
        let [result , data] = await pool.query(sql, [email, password]);
        console.log(result);
        res.send(result);
-       
+    
 
 }
 catch(err)

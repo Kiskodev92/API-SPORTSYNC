@@ -33,4 +33,25 @@ catch(err)
         }
 }
 
-module.exports = {postAddEvent};
+
+const getEvent = async (req, res) => {
+
+   try{
+        let sql = 'SELECT * FROM eventos'
+          
+       console.log(sql);
+       let [result] = await pool.query(sql);
+       console.log(result);
+       if(result == 0){
+        res.send({error:true , codigo: 404, mensaje:'eventos no encontrados'})
+       }else{
+        res.send({error:false , codigo: 200, mensaje:'eventos encontrados', data:result})
+       }
+   }
+   catch (err){
+        console.log(err);
+   }
+}
+
+
+module.exports = {postAddEvent, getEvent};
