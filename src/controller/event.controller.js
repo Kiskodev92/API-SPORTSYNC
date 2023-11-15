@@ -33,7 +33,7 @@ catch(err)
         }
 }
 
-
+// MOSTRAT EVENTOS EN HOME
 const getEvent = async (req, res) => {
 
    try{
@@ -54,4 +54,29 @@ const getEvent = async (req, res) => {
 }
 
 
-module.exports = {postAddEvent, getEvent};
+// MOSTRAR EL EVENTO ELEGIDO EN EXPLORE
+const getOne = async (req, res) => {
+  
+  try{
+    
+    let sql;
+
+     sql = 'SELECT * FROM eventos WHERE titulo = '+req.query.titulo
+  
+      console.log('evento no encontrado');
+    
+
+    console.log(sql);
+    let [result] = await pool.query(sql)
+    console.log(result);
+    if(result.length == 0){
+      res.send({error:true, codigo:404, mensaje:'evento no encontrado'})
+    }else{
+      res.send({error:false, codigo:200, mensaje:'evento encontrado', data:result})
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
+module.exports = {postAddEvent, getEvent, getOne};
