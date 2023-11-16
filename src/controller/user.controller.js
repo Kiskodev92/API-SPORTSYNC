@@ -7,13 +7,12 @@ const postRegister = async (req, res) =>
    try 
    {
 
-       let sql = "INSERT INTO usuario (nombre, usuario, email, password, provincia, ciudad) " + 
+       let sql = "INSERT INTO usuario (nombre, usuario, email, password, provincia) " + 
                  "VALUES ('" + req.body.nombre + "', '" +
                                req.body.usuario + "', '" +
                                req.body.email + "', '" +
                                req.body.password + "', '" +
-                               req.body.provincia + "', '" +
-                               req.body.ciudad + "')";
+                               req.body.provincia + "')";
        
        console.log(sql);
        let [result] = await pool.query(sql);
@@ -31,6 +30,31 @@ const postRegister = async (req, res) =>
    }
 } 
 
+/* Funcion Registar Deporte */
+const postDeporte = async (req, res) =>
+{
+
+   try 
+   {
+
+       let sql = "INSERT INTO deporte (deporte) " + 
+                 "VALUES ('" + req.body.deporte + "')";
+       
+       console.log(sql);
+       let [result] = await pool.query(sql);
+       console.log(result);
+
+       if (result.insertId)
+          res.send(String(result.insertId));
+
+       else
+         res.send("-1");
+   }
+   catch(err)
+   {
+       console.log(err);
+   }
+} 
 
 /* Funcion Iniciar Sesion */
 const postLogin = async (req, res) =>
@@ -81,4 +105,28 @@ const putUsuario = async (req, res) =>
         console.log(err)
     }
 }
-module.exports = {postRegister, postLogin, putUsuario};
+<<<<<<< HEAD
+module.exports = {postRegister, postDeporte, postLogin, putUsuario};
+=======
+
+
+const getproyect = async (req,res) =>{
+    
+    try{
+
+        let sql = 'SELECT s.titulo, s.fecha, s.descripcion, s.foto FROM eventos AS s INNER JOIN usEvent AS b ON (s.id_eventos=b.id_evento) INNER JOIN usuario AS c ON (b.id_usuario=c.id_usuario) GROUP BY s.titulo, s.fecha, s.descripcion, s.foto'
+
+        console.log(sql);
+        let [result] = await pool.query(sql);
+        res.send(result); 
+
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+
+module.exports = {postRegister, postLogin, putUsuario, getproyect};
+>>>>>>> apiborja
