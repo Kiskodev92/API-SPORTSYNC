@@ -105,9 +105,6 @@ const putUsuario = async (req, res) =>
         console.log(err)
     }
 }
-<<<<<<< HEAD
-module.exports = {postRegister, postDeporte, postLogin, putUsuario};
-=======
 
 
 const getproyect = async (req,res) =>{
@@ -128,5 +125,4 @@ const getproyect = async (req,res) =>{
 
 
 
-module.exports = {postRegister, postLogin, putUsuario, getproyect};
->>>>>>> apiborja
+module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect};
