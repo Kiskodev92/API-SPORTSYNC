@@ -58,15 +58,15 @@ const getOne = async (req, res) => {
   
   try{
     
-    let sql;
+    let valor = [req.query.titulo]
 
-     sql = 'SELECT * FROM eventos WHERE titulo = '+req.query.titulo
+    let sql = 'SELECT * FROM eventos WHERE titulo = ?'
   
       console.log('evento no encontrado');
     
 
     console.log(sql);
-    let [result] = await pool.query(sql)
+    let [result] = await pool.query(sql,valor)
     console.log(result);
     if(result.length == 0){
       res.send({error:true, codigo:404, mensaje:'evento no encontrado'})
