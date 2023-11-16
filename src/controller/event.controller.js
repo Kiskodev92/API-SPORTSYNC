@@ -9,7 +9,7 @@ try
       
   let sql = "INSERT INTO eventos (id_usuario, desporte_id, titulo, fecha, hora, descripcion, foto)" + 
   "VALUES ('" +  req.body.id_usuario + "', '" +
-              req.desporte_id + "', '" +
+              req.body.desporte_id + "', '" +
               req.body.titulo + "', '" +
               req.body.fecha + "', '" +
               req.body.hora + "', '" +
