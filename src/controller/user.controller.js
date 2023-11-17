@@ -105,4 +105,24 @@ const putUsuario = async (req, res) =>
         console.log(err)
     }
 }
-module.exports = {postRegister, postDeporte, postLogin, putUsuario};
+
+
+const getproyect = async (req,res) =>{
+    
+    try{
+
+        let sql = 'SELECT s.titulo, s.fecha, s.descripcion, s.foto FROM eventos AS s INNER JOIN usEvent AS b ON (s.id_eventos=b.id_evento) INNER JOIN usuario AS c ON (b.id_usuario=c.id_usuario) GROUP BY s.titulo, s.fecha, s.descripcion, s.foto'
+
+        console.log(sql);
+        let [result] = await pool.query(sql);
+        res.send(result); 
+
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+
+module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect};
