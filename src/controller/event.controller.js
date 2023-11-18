@@ -26,7 +26,6 @@ const postAddEvent = async (req, res) => {
 try 
 {
       
-<<<<<<< HEAD
   let sql = "INSERT INTO eventos (id_usuario, id_deporte,titulo, fecha,  descripcion, foto)" + 
                                     "VALUES ('" +  req.body.id_usuario + "', '" +
                                                 req.body.id_deporte + "', '" +
@@ -36,15 +35,6 @@ try
                                                 req.body.foto + "')";
 
 
-=======
-  let sql = "INSERT INTO eventos (id_usuario, id_deporte, titulo, fecha, descripcion, foto)" + 
-  "VALUES ('" +  req.body.id_usuario + "', '" +
-              req.body.id_deporte + "', '" +
-              req.body.titulo + "', '" +
-              req.body.fecha + "', '" +
-              req.body.descripcion + "', '" +
-              req.body.foto + "')";
->>>>>>> a1fe2f6b31730d10c960835e6db8eeb1f99ce647
   
     console.log(sql);
     let [result] = await pool.query(sql);
