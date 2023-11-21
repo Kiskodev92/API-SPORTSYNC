@@ -1,5 +1,24 @@
 const { pool } = require('../database');
 
+/*Llamar a los deportes*/
+const getDeporte = async (req, res) => {
+
+  try{
+       let sql = 'SELECT * FROM deporte'
+         
+      console.log(sql);
+      let [result] = await pool.query(sql);
+      console.log(result);
+      if(result == 0){
+       res.send({error:true , codigo: 404, mensaje:'deportes no encontrados'})
+      }else{
+       res.send({error:false , codigo: 200, mensaje:'deportes encontrados', data:result})
+      }
+  }
+  catch (err){
+       console.log(err);
+  }
+}
 /* Agregar evento */
 
 const postAddEvent = async (req, res) => {
@@ -7,12 +26,11 @@ const postAddEvent = async (req, res) => {
 try 
 {
       
-  let sql = "INSERT INTO eventos (id_usuario, desporte_id, titulo, fecha, hora, descripcion, foto)" + 
+  let sql = "INSERT INTO eventos (id_usuario, id_deporte, titulo, fecha, descripcion, foto)" + 
   "VALUES ('" +  req.body.id_usuario + "', '" +
-              req.body.desporte_id + "', '" +
+              req.body.id_deporte + "', '" +
               req.body.titulo + "', '" +
               req.body.fecha + "', '" +
-              req.body.hora + "', '" +
               req.body.descripcion + "', '" +
               req.body.foto + "')";
   
@@ -78,4 +96,28 @@ const getOne = async (req, res) => {
   }
 }
 
-module.exports = {postAddEvent, getEvent, getOne};
+//Cambiar boton seguido
+
+const postBoton  = async (req, res) => {
+  {
+    const { id_usuario, id_evento } = req.body;
+ 
+    try 
+    {
+ 
+        let sql = "SELECT id_usuario, id_evento FROM usEvent ";
+        
+        let [result] = await pool.query(sql, [id_usuario, id_evento]);
+        console.log(result);
+        res.send(result);
+ 
+ }
+ catch(err)
+ {
+     console.log(err);
+ }
+ }
+}
+
+
+module.exports = {postAddEvent, getEvent, getOne, getDeporte, postBoton};
