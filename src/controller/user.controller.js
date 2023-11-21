@@ -59,14 +59,14 @@ const postDeporte = async (req, res) =>
 /* Funcion Iniciar Sesion */
 const postLogin = async (req, res) =>
 {
-   const { email, password } = req.body;
+   const { usuario, password } = req.body;
 
    try 
    {
 
-       let sql = "SELECT id_usuario, nombre, usuario, email, provincia, foto FROM usuario WHERE email = ? AND password = ?";
+       let sql = "SELECT id_user, nombre, usuario, email, provincia, foto FROM usuario WHERE usuario = ? AND password = ?";
        
-       let [result] = await pool.query(sql, [email, password]);
+       let [result] = await pool.query(sql, [usuario, password]);
        console.log(result);
        res.send(result);
     
