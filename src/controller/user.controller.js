@@ -59,14 +59,14 @@ const postDeporte = async (req, res) =>
 /* Funcion Iniciar Sesion */
 const postLogin = async (req, res) =>
 {
-   const { email, password } = req.body;
+   const { usuario, password } = req.body;
 
    try 
    {
 
-       let sql = "SELECT id_usuario, nombre, usuario, email, provincia, foto FROM usuario WHERE email = ? AND password = ?";
+       let sql = "SELECT id_user, nombre, usuario, email, provincia, foto,descripcion FROM usuario WHERE usuario = ? AND password = ?";
        
-       let [result] = await pool.query(sql, [email, password]);
+       let [result] = await pool.query(sql, [usuario, password]);
        console.log(result);
        res.send(result);
     
@@ -110,11 +110,12 @@ const putUsuario = async (req, res) =>
 const getproyect = async (req,res) =>{
     
     try{
+        let params =[ req.query.id]
 
-        let sql = 'SELECT s.titulo, s.fecha, s.descripcion, s.foto FROM eventos AS s INNER JOIN usEvent AS b ON (s.id_eventos=b.id_evento) INNER JOIN usuario AS c ON (b.id_usuario=c.id_usuario) GROUP BY s.titulo, s.fecha, s.descripcion, s.foto'
+        let sql = 'SELECT * FROM eventos WHERE id_usuario = ?'
 
         console.log(sql);
-        let [result] = await pool.query(sql);
+        let [result] = await pool.query(sql,params);
         res.send(result); 
 
 
@@ -125,4 +126,25 @@ const getproyect = async (req,res) =>{
 
 
 
-module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect};
+const getSeguidos = async (req, res) =>{
+
+    try{
+
+        let params =[ req.query.id]
+
+        let sql = 'SELECT c.titulo , c.fecha, c.descripcion, c.foto FROM usEvent AS s INNER JOIN eventos AS c ON(s.id_evento=c.id_eventos) GROUP BY c.titulo , c.fecha, c.descripcion, c.foto'
+
+        console.log(sql);
+        let [result] = await pool.query(sql,params);
+        res.send(result); 
+
+    }catch(err){
+
+        console.log(err);
+    }
+}
+
+
+
+
+module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect,getSeguidos,postProyect};
