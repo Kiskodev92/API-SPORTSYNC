@@ -96,4 +96,28 @@ const getOne = async (req, res) => {
   }
 }
 
-module.exports = {postAddEvent, getEvent, getOne, getDeporte};
+//Cambiar boton seguido
+
+const postBoton  = async (req, res) => {
+  {
+    const { id_usuario, id_evento } = req.body;
+ 
+    try 
+    {
+ 
+        let sql = "SELECT id_usuario, id_evento FROM usEvent ";
+        
+        let [result] = await pool.query(sql, [id_usuario, id_evento]);
+        console.log(result);
+        res.send(result);
+ 
+ }
+ catch(err)
+ {
+     console.log(err);
+ }
+ }
+}
+
+
+module.exports = {postAddEvent, getEvent, getOne, getDeporte, postBoton};

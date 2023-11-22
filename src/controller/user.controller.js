@@ -64,7 +64,7 @@ const postLogin = async (req, res) =>
    try 
    {
 
-       let sql = "SELECT id_user, nombre, usuario, email, provincia, foto,descripcion FROM usuario WHERE usuario = ? AND password = ?";
+       let sql = "SELECT id_user, nombre, usuario, email, provincia,descripcion foto FROM usuario WHERE usuario = ? AND password = ?";
        
        let [result] = await pool.query(sql, [usuario, password]);
        console.log(result);
@@ -89,12 +89,12 @@ const putUsuario = async (req, res) =>
                       req.body.provincia,
                       req.body.descripcion,
                       req.body.foto,
-                      req.body.id_usuario]
+                      req.body.id_user]
 
         let sql = "UPDATE usuario SET  nombre = COALESCE(?, nombre) , " + 
-                                   "provincia = COALESCE(?, last_provincia), " +
+                                   "provincia = COALESCE(?, provincia), " +
                                    "descripcion = COALESCE(?, descripcion), " +
-                                   "foto = COALESCE(?, foto) WHERE id_usuario = ?";
+                                   "foto = COALESCE(?, foto) WHERE id_user = ?";
 
         console.log(sql);
         let [result] = await pool.query(sql, params);
