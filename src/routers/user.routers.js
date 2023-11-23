@@ -14,5 +14,4 @@ router.get("/perfil4" , userCtrl.getSeguidos)
 
 
 
-
 module.exports = router;
