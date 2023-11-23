@@ -25,7 +25,7 @@ const postAddEvent = async (req, res) => {
 
 try 
 {
-      
+      console.log(req.body);
   let sql = "INSERT INTO eventos (id_usuario, id_deporte, titulo, fecha, descripcion, foto)" + 
   "VALUES ('" +  req.body.id_usuario + "', '" +
               req.body.id_deporte + "', '" +
@@ -99,25 +99,50 @@ const getOne = async (req, res) => {
 //Cambiar boton seguido
 
 const postBoton  = async (req, res) => {
+  try 
   {
-    const { id_usuario, id_evento } = req.body;
- 
-    try 
-    {
- 
-        let sql = "SELECT id_usuario, id_evento FROM usEvent ";
         
-        let [result] = await pool.query(sql, [id_usuario, id_evento]);
-        console.log(result);
-        res.send(result);
- 
- }
- catch(err)
- {
-     console.log(err);
- }
- }
+    let sql = "INSERT INTO usEvent (id_usuario, id_evento)" + 
+    "VALUES ('" +  req.body.id_usuario + "', '" + req.body.id_evento + "')";
+    
+      console.log(sql);
+      let [result] = await pool.query(sql);
+      console.log(result);
+                                           
+      if (result.insertId)
+      res.send(String(result.insertId));
+                                           
+      else
+          res.send("-1");
+  }
+  catch(err)
+          {
+            console.log(err);
+          }
 }
 
 
-module.exports = {postAddEvent, getEvent, getOne, getDeporte, postBoton};
+
+const getDeportUs = async (req,res) =>{
+  try{
+
+    let params =[ req.query.id]
+
+
+    let sql = 'SELECT c.deporte FROM usdep AS s INNER JOIN deporte AS c ON(s.id_deporte=c.id_deporte) GROUP BY c.deporte'
+
+    
+    console.log(sql);
+    let [result] = await pool.query(sql,params);
+    res.send(result); 
+
+
+  }catch(err){
+
+    console.log(err);
+  }
+
+}
+
+
+module.exports = {postAddEvent, getEvent, getOne, getDeporte, postBoton,getDeportUs};

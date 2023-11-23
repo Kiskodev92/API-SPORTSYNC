@@ -64,7 +64,7 @@ const postLogin = async (req, res) =>
    try 
    {
 
-       let sql = "SELECT id_user, nombre, usuario, email, provincia,descripcion foto FROM usuario WHERE usuario = ? AND password = ?";
+       let sql = "SELECT id_user, nombre, usuario, email, provincia,descripcion ,foto FROM usuario WHERE usuario = ? AND password = ?";
        
        let [result] = await pool.query(sql, [usuario, password]);
        console.log(result);
@@ -147,4 +147,4 @@ const getSeguidos = async (req, res) =>{
 
 
 
-module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect,getSeguidos,postProyect};
+module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect,getSeguidos};
