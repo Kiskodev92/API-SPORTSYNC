@@ -96,7 +96,7 @@ const getOne = async (req, res) => {
   }
 }
 
-//Cambiar boton seguido
+//Cambiar boton seguido y añadir evento con click
 
 const postBoton  = async (req, res) => {
   try 
