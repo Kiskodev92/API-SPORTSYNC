@@ -25,16 +25,14 @@ const postAddEvent = async (req, res) => {
 
 try 
 {
-      
-  let sql = "INSERT INTO eventos (id_usuario, id_deporte,titulo, fecha,  descripcion, foto)" + 
-                                    "VALUES ('" +  req.body.id_usuario + "', '" +
-                                                req.body.id_deporte + "', '" +
-                                                req.body.titulo + "', '" +
-                                                req.body.fecha + "', '" +
-                                                req.body.descripcion + "', '" +
-                                                req.body.foto + "')";
-
-
+  console.log(req.body);
+  let sql = "INSERT INTO eventos (id_usuario, id_deporte, titulo, fecha, descripcion, foto)" + 
+  "VALUES ('" +  req.body.id_usuario + "', '" +
+              req.body.id_deporte + "', '" +
+              req.body.titulo + "', '" +
+              req.body.fecha + "', '" +
+              req.body.descripcion + "', '" +
+              req.body.foto + "')";
   
     console.log(sql);
     let [result] = await pool.query(sql);
@@ -50,6 +48,7 @@ catch(err)
         {
           console.log(err);
         }
+
 }
 
 // MOSTRAT EVENTOS EN HOME
@@ -77,13 +76,12 @@ const getEvent = async (req, res) => {
 const getOne = async (req, res) => {
   
   try{
-    
-    let valor = [req.query.titulo]
 
-    let sql = 'SELECT * FROM eventos WHERE titulo = ?'
-  
-      console.log('evento no encontrado');
-    
+    if(req.query.provincia ){
+
+    let valor = [req.query.provincia]
+
+    let sql = 'SELECT * FROM eventos WHERE provincia = ?'
 
     console.log(sql);
     let [result] = await pool.query(sql,valor)
@@ -93,9 +91,107 @@ const getOne = async (req, res) => {
     }else{
       res.send({error:false, codigo:200, mensaje:'evento encontrado', data:result})
     }
+
+  }
+  
   }catch(err){
     console.log(err);
   }
 }
 
-module.exports = {postAddEvent, getEvent, getOne, getDeporte};
+const getOne2 = async (req, res) => {
+  
+  try{
+
+    if(req.query.titulo ){
+
+    let valor = [req.query.titulo]
+
+    let sql = 'SELECT * FROM eventos WHERE titulo = ?'
+
+    console.log(sql);
+    let [result] = await pool.query(sql,valor)
+    console.log(result);
+    if(result.length == 0){
+      res.send({error:true, codigo:404, mensaje:'evento no encontrado'})
+    }else{
+      res.send({error:false, codigo:200, mensaje:'evento encontrado', data:result})
+    }
+
+  }
+  
+  }catch(err){
+    console.log(err);
+  }
+}
+
+//Cambiar boton seguido y añadir evento con click
+
+const postBoton  = async (req, res) => {
+  try 
+  {
+        
+    let sql = "INSERT INTO usEvent (id_usuario, id_evento)" + 
+    "VALUES ('" +  req.body.id_usuario + "', '" + req.body.id_evento + "')";
+    
+      console.log(sql);
+      let [result] = await pool.query(sql);
+      console.log(result);
+                                           
+      if (result.insertId)
+      res.send(String(result.insertId));
+                                           
+      else
+          res.send("-1");
+  }
+  catch(err)
+          {
+            console.log(err);
+          }
+}
+
+
+
+const getDeportUs = async (req,res) =>{
+  try{
+
+    let params =[ req.query.id]
+
+
+    let sql = 'SELECT c.deporte FROM usdep AS s INNER JOIN deporte AS c ON(s.id_deporte=c.id_deporte) GROUP BY c.deporte'
+
+    
+    console.log(sql);
+    let [result] = await pool.query(sql,params);
+    res.send(result); 
+
+
+  }catch(err){
+
+    console.log(err);
+  }
+
+}
+
+const deleteevent = async (req, res) =>
+{
+    try
+    {
+        console.log(req.body);
+
+        let params = [req.query.id_usuario,req.query.id_evento]
+        let sql = "DELETE FROM usEvent WHERE id_usuario = ? AND id_evento = ?"
+        console.log(sql);
+        let [result] = await pool.query(sql,params)
+        res.send(result)
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+
+}
+
+
+
+module.exports = {postAddEvent, getEvent, getOne, getDeporte, postBoton,getDeportUs,deleteevent,getOne2};
