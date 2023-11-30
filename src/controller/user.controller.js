@@ -63,10 +63,6 @@ const postLogin = async (req, res) =>
    try 
    {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a7961c65f3c7dcf8a8669fe827984253319eb7f0
        let sql = "SELECT id_user, nombre, usuario, email, provincia, descripcion, foto FROM usuario WHERE usuario = ? AND password = ?";
        
        let [result] = await pool.query(sql, [usuario, password]);
