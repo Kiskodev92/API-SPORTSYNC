@@ -29,7 +29,8 @@ const postRegister = async (req, res) =>
        console.log(err);
    }
 } 
-/*Funcion Resgistrar Deporte */
+
+/* Funcion Registar Deporte */
 const postUsdep = async (req, res) =>
 {
 
@@ -38,7 +39,7 @@ const postUsdep = async (req, res) =>
 
        let sql = "INSERT INTO usdep (id_usuario, id_deporte) " + 
                  "VALUES ('" +   req.body.id_usuario + "', '" +
-                                 req.body.id_deporte + "')";
+                                 req.body.deporte + "')";
        
        console.log(sql);
        let [result] = await pool.query(sql);
@@ -111,7 +112,7 @@ const getproyect = async (req,res) =>{
     try{
         let params =[ req.query.id]
 
-        let sql = 'SELECT * FROM eventos WHERE id_usuario = ?'
+        let sql = 'SELECT * FROM eventos WHERE id_usuario = ?';
 
         console.log(sql);
         let [result] = await pool.query(sql,params);
@@ -144,6 +145,4 @@ const getSeguidos = async (req, res) =>{
 }
 
 
-
-
-module.exports = {postRegister,postDeporte, postUsdep, postLogin, putUsuario, getproyect, getSeguidos};
+module.exports = {postRegister,postUsdep, postLogin, putUsuario, getproyect,getSeguidos};

@@ -4,7 +4,7 @@ const { pool } = require('../database');
 const getDeporte = async (req, res) => {
 
   try{
-       let sql = 'SELECT * FROM deporte'
+       let sql = 'SELECT * FROM deporte';
          
       console.log(sql);
       let [result] = await pool.query(sql);
@@ -54,7 +54,7 @@ catch(err)
 const getEvent = async (req, res) => {
 
    try{
-        let sql = 'SELECT * FROM eventos'
+        let sql = 'SELECT * FROM eventos';
           
        console.log(sql);
        let [result] = await pool.query(sql);
@@ -78,7 +78,7 @@ const getOne = async (req, res) => {
     
     let valor = [req.query.titulo]
 
-    let sql = 'SELECT * FROM eventos WHERE titulo = ?'
+    let sql = 'SELECT * FROM eventos WHERE titulo = ?';
   
       console.log('evento no encontrado');
     
@@ -129,7 +129,7 @@ const getDeportUs = async (req,res) =>{
     let params =[ req.query.id]
 
 
-    let sql = 'SELECT c.deporte FROM usdep AS s INNER JOIN deporte AS c ON(s.id_deporte=c.id_deporte) GROUP BY c.deporte'
+    let sql = 'SELECT c.deporte FROM usdep AS s INNER JOIN deporte AS c ON(s.id_deporte=c.id_deporte) GROUP BY c.deporte';
 
     
     console.log(sql);
