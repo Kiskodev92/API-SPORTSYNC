@@ -29,16 +29,16 @@ const postRegister = async (req, res) =>
        console.log(err);
    }
 } 
-
-/* Funcion Registar Deporte */
-const postDeporte = async (req, res) =>
+/*Funcion Resgistrar Deporte */
+const postUsdep = async (req, res) =>
 {
 
    try 
    {
 
-       let sql = "INSERT INTO deporte (deporte) " + 
-                 "VALUES ('" + req.body.deporte + "')";
+       let sql = "INSERT INTO usdep (id_usuario, id_deporte) " + 
+                 "VALUES ('" +   req.body.id_usuario + "', '" +
+                                 req.body.id_deporte + "')";
        
        console.log(sql);
        let [result] = await pool.query(sql);
@@ -55,7 +55,6 @@ const postDeporte = async (req, res) =>
        console.log(err);
    }
 } 
-
 /* Funcion Iniciar Sesion */
 const postLogin = async (req, res) =>
 {
@@ -64,11 +63,7 @@ const postLogin = async (req, res) =>
    try 
    {
 
-<<<<<<< HEAD
-       let sql = "SELECT id_user, nombre, usuario, email, provincia,descripcion ,foto FROM usuario WHERE usuario = ? AND password = ?";
-=======
        let sql = "SELECT id_user, nombre, usuario, email, provincia, descripcion, foto FROM usuario WHERE usuario = ? AND password = ?";
->>>>>>> da720c5f58baa1c679b7a6eb43d8ec78b5c90318
        
        let [result] = await pool.query(sql, [usuario, password]);
        console.log(result);
@@ -151,4 +146,4 @@ const getSeguidos = async (req, res) =>{
 
 
 
-module.exports = {postRegister,postDeporte, postLogin, putUsuario, getproyect,getSeguidos};
+module.exports = {postRegister,postDeporte, postUsdep, postLogin, putUsuario, getproyect, getSeguidos};
