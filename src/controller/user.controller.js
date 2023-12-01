@@ -39,7 +39,7 @@ const postUsdep = async (req, res) =>
 
        let sql = "INSERT INTO usdep (id_usuario, id_deporte) " + 
                  "VALUES ('" +   req.body.id_usuario + "', '" +
-                                 req.body.deporte + "')";
+                                 req.body.id_deporte + "')";
        
        console.log(sql);
        let [result] = await pool.query(sql);
@@ -143,6 +143,7 @@ const getSeguidos = async (req, res) =>{
         console.log(err);
     }
 }
+
 
 
 module.exports = {postRegister,postUsdep, postLogin, putUsuario, getproyect,getSeguidos};
