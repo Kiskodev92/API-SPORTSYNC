@@ -131,7 +131,7 @@ const getSeguidos = async (req, res) =>{
 
         let params =[ req.query.id]
 
-        let sql = 'SELECT c.titulo , c.fecha, c.descripcion, c.foto FROM usEvent AS s INNER JOIN eventos AS c ON(s.id_evento=c.id_eventos) GROUP BY c.titulo , c.fecha, c.descripcion, c.foto'
+        let sql = 'SELECT c.titulo , c.fecha, c.descripcion, c.foto ,c.id_eventos FROM usEvent AS s INNER JOIN eventos AS c ON(s.id_evento=c.id_eventos) WHERE s.id_usuario = ?'
 
         console.log(sql);
         let [result] = await pool.query(sql,params);
@@ -146,4 +146,4 @@ const getSeguidos = async (req, res) =>{
 
 
 
-module.exports = {postRegister,postDeporte, postUsdep, postLogin, putUsuario, getproyect, getSeguidos};
+module.exports = {postRegister, postUsdep, postLogin, putUsuario, getproyect, getSeguidos};

@@ -77,22 +77,35 @@ const getOne = async (req, res) => {
   
   try{
 
-    if(req.query.provincia ){
+    let sql
 
-    let valor = [req.query.provincia]
+    let valor = []
 
-    let sql = 'SELECT * FROM eventos WHERE provincia = ?'
+    if(req.query.provincia && req.query.titulo ){
+
+      valor= [req.query.provincia, req.query.titulo]
+      sql= 'SELECT * FROM eventos WHERE provincia = ? AND titulo = ?'
+    }else if(req.query.provincia){
+      valor= [ req.query.provincia]
+
+      sql='SELECT * FROM eventos WHERE provincia = ? '
+    }else if(req.query.titulo){
+
+      valor = [ req.query.titulo]
+      sql='SELECT * FROM eventos WHERE titulo = ? '
+    }
+   
 
     console.log(sql);
     let [result] = await pool.query(sql,valor)
     console.log(result);
     if(result.length == 0){
-      res.send({error:true, codigo:404, mensaje:'evento no encontrado'})
+      res.send({error:true, codigo:404, mensaje:'evento no encontrado',data:[]})
     }else{
       res.send({error:false, codigo:200, mensaje:'evento encontrado', data:result})
     }
 
-  }
+  
   
   }catch(err){
     console.log(err);
@@ -179,7 +192,7 @@ const deleteevent = async (req, res) =>
     {
         console.log(req.body);
 
-        let params = [req.query.id_usuario,req.query.id_evento]
+        let params = [req.body.id_usuario,req.body.id_evento]
         let sql = "DELETE FROM usEvent WHERE id_usuario = ? AND id_evento = ?"
         console.log(sql);
         let [result] = await pool.query(sql,params)
