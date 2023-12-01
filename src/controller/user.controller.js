@@ -146,9 +146,4 @@ const getSeguidos = async (req, res) =>{
 
 
 
-<<<<<<< HEAD
-
-module.exports = {postRegister, postUsdep, postLogin, putUsuario, getproyect, getSeguidos};
-=======
 module.exports = {postRegister,postUsdep, postLogin, putUsuario, getproyect,getSeguidos};
->>>>>>> 774555900111eb8ab7edaf3e86ecbbd469f9fdc8
