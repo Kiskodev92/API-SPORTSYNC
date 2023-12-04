@@ -1,3 +1,4 @@
+const { request } = require("express");
 const { pool } = require("../database");
 
 /*Funcion Resgistrar */
@@ -33,16 +34,23 @@ const postRegister = async (req, res) =>
 /* Funcion Registar Deporte */
 const postUsdep = async (req, res) =>
 {
-
+console.log(req.body);
    try 
    {
+
+       let id_deporte = ["futbol", "baloncesto", "escalada", "natacion", "ciclisco", "runnig", "volley", "patinaje"];
+       let deport;
 
        let sql = "INSERT INTO usdep (id_usuario, id_deporte) " + 
                  "VALUES ('" +   req.body.id_usuario + "', '" +
                                  req.body.id_deporte + "')";
+
+        for(let dep of id_deporte){
+            deport = dep.id_deporte;
+        }                       
        
        console.log(sql);
-       let [result] = await pool.query(sql);
+       let [result] = await pool.query(sql, deport);
        console.log(result);
 
        if (result.insertId)
