@@ -8,12 +8,14 @@ const postRegister = async (req, res) =>
    try 
    {
 
-       let sql = "INSERT INTO usuario (nombre, usuario, email, password, provincia) " + 
+       let sql = "INSERT INTO usuario (nombre, usuario, email, password, provincia, descripcion, foto) " + 
                  "VALUES ('" + req.body.nombre + "', '" +
                                req.body.usuario + "', '" +
                                req.body.email + "', '" +
                                req.body.password + "', '" +
-                               req.body.provincia + "')";
+                               req.body.provincia + "', '" +
+                               req.body.descripcion + "', '" +
+                               req.body.foto + "')";
        
        console.log(sql);
        let [result] = await pool.query(sql);
